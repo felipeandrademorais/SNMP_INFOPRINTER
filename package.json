@@ -1,0 +1,19 @@
+{
+  "name": "SNMP_Impressoras",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-export": "^1.0.2",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19",
+    "net-snmp": "^1.2.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
