@@ -8,7 +8,8 @@
     "csv-export": "^1.0.2",
     "express": "^4.16.4",
     "mongoose": "^5.4.19",
-    "net-snmp": "^1.2.4"
+    "net-snmp": "^1.2.4",
+    "require-dir": "^1.2.0"
   },
   "scripts": {
     "start": "nodemon index.js"

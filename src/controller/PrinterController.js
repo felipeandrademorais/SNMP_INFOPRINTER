@@ -1,51 +1,36 @@
-const snmp = require("net-snmp");
-const printers = [
-  {
-    name: "Samsung",
-    ip: "10.6.48.55",
-    comunity: "public",
-    serial: "ZER4BQAD900195M",
-    oid_counter: "1.3.6.1.2.1.43.10.2.1.4.1.1",
-    counter: 0
+const mongoose = require("mongoose");
+const Printer = mongoose.model("Printer");
+
+module.exports = {
+  async index(req, res) {
+    const printers = await Printer.find();
+
+    return res.json(printers);
   },
-  {
-    name: "Lexmark",
-    ip: "10.6.49.20",
-    comunity: "public",
-    serial: "35PC405",
-    oid_counter: "1.3.6.1.4.1.641.2.1.5.2.0",
-    counter: 0
+
+  async show(req, res) {
+    const printer = await Printer.findById(req.params.id);
+
+    return res.json(printer);
   },
-  {
-    name: "Oki",
-    ip: "10.6.49.10",
-    comunity: "public",
-    serial: "AK36078766",
-    oid_counter: "1.3.6.1.4.1.2001.1.1.1.1.11.1.10.170.1.5.1",
-    counter: 0
-  }
-];
 
-class PrinterController {
-  index(req, res) {
-    res.send(printers);
-  }
-  show(req, res) {
-    const printer = printers[req.params.id];
+  async store(req, res) {
+    const printer = await Printer.create(req.body);
 
-    var session = snmp.createSession(printer.ip, printer.comunity);
-    var oid = [printer.oid_counter];
+    return res.json(printer);
+  },
 
-    session.get(oid, function(error, varbinds) {
-      if (error) {
-        res.send(error.toString());
-      } else {
-        var sysName = varbinds[0].value;
-        var resultPrinter = { ...printer, counter: sysName.toString() };
-        res.json(resultPrinter);
-      }
+  async update(req, res) {
+    const printer = await Printer.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
     });
-  }
-}
 
-module.exports = new PrinterController();
+    return res.json(printer);
+  },
+
+  async destroy(req, res) {
+    await printer.findOneAndRemove(req.params.id);
+
+    return res.send();
+  }
+};
