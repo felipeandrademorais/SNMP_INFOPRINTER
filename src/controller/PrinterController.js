@@ -29,8 +29,8 @@ module.exports = {
   },
 
   async destroy(req, res) {
-    await printer.findOneAndRemove(req.params.id);
+    await Printer.findOneAndRemove(req.params.id);
 
-    return res.send();
+    return res.send('Excluido');
   }
 };
